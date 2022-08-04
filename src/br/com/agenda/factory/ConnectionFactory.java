@@ -15,13 +15,13 @@ public class ConnectionFactory {
 	private static final String DATABASE_URL = "jdbc:mysql://locahost:3306/agenda";
 	
 	
-	//Conexão com banco de dados
+	//Conexo com banco de dados
 	 public static Connection createConnectionToMySQL() throws Exception {
 		 
 		 //Faz com que a classe seja carregada pela jvm
 		 Class.forName("com.mysql.jdbc.driver");
 		 
-		 //Cria conecxão com banco de dados
+		 //Cria conecxo com banco de dados
 		 Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
 		 
 		 return connection;
@@ -29,13 +29,13 @@ public class ConnectionFactory {
 	 
 	 public static void main(String[] args) throws Exception {
 		
-		 //Recuperar conecxão com banco de dados
+		 //Recuperar conecxo com banco de dados
 		 Connection con = createConnectionToMySQL();
 		 
-		 //Testar se a conecxão é nula
+		 //Testar se a conecxo  nula
 		 
 		 if(con!=null) {
-			 System.out.println("Conecxão obtida com sucesso");
+			 System.out.println("Conecxo obtida com sucesso");
 			 con.close();
 		 }
 		 
