@@ -12,12 +12,12 @@ public class Main {
         ContatoDAO contatoDAO =  new ContatoDAO();
 
         Contato contato = new Contato();
-        contato.setName("Daniel Veronez");
-        contato.setIdade(55);
+        contato.setName("Danilo Andrade");
+        contato.setIdade(28);
         contato.setDataCadastro(new Date());
 
         contatoDAO.save(contato);
 
     }
-
+ 
 }
