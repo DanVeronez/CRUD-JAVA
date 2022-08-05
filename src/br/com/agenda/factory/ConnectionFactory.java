@@ -6,14 +6,13 @@ import java.sql.DriverManager;
 public class ConnectionFactory {
 	
 	//Nome do usuario MySql
-	private static final String USERNAME = "Root";
+	private static final String USERNAME = "root";
 	
 	//Senha do Banco
 	private static final String PASSWORD = "";
 	
 	//Caminho banco de dados, porta, nome do bando de dados
-	private static final String DATABASE_URL = "jdbc:mysql://locahost:3306/agenda";
-	
+	private static final String DATABASE_URL = "jdbc:mysql://127.0.0.1:3306/agenda";
 	
 	//Conexo com banco de dados
 	 public static Connection createConnectionToMySQL() throws Exception {
