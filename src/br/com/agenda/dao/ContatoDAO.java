@@ -22,107 +22,154 @@ import br.com.agenda.model.Contato;
  */
 
 public class ContatoDAO {
-    
-    public void save (Contato contato){
-        
+
+    public void create(Contato contato) {
+
         String sql = "INSERT INTO contatos(nome, idade, datacadastro) VALUES(?,?,?)";
 
         Connection conn = null;
         PreparedStatement pstm = null;
-    
-        try{
-            //Criar uma conecx�o com banco de dados
+
+        try {
+
+            // Criar uma conecx�o com banco de dados
             conn = ConnectionFactory.createConnectionToMySQL();
-            //Criamos uma PrepareStatement, para executar uma Query
+
+            // Criamos uma PrepareStatement, para executar uma Query
             pstm = conn.prepareStatement(sql);
-            //Adicionar os valores que s�o esperados pela Query
+
+            // Adicionar os valores que s�o esperados pela Query
             pstm.setString(1, contato.getName());
             pstm.setInt(2, contato.getIdade());
             pstm.setDate(3, new Date(contato.getDataCadastro().getTime()));
 
-            //Executar a Query
+            // Executar a Query
             pstm.execute();
-            
+
             System.out.println("Contato Salvo Com Sucesso!");
-        }catch(Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            //fechar as conecx�es
-            try{
-                if(pstm!=null){
+
+        } finally {
+
+            // fechar as conecxões
+            try {
+                if (pstm != null) {
                     pstm.close();
                 }
-                if(conn!=null){
+
+                if (conn != null) {
                     conn.close();
                 }
-            }catch(Exception e){
+                
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    
+
     }
 
-    public List<Contato> getContatos(){
+    public List<Contato> read() {
+
         String sql = "SELECT * FROM contatos";
 
         List<Contato> contatos = new ArrayList<Contato>();
 
         Connection conn = null;
         PreparedStatement pstm = null;
-
-        //Classe que vai recuperar os dados do banco. ****SELECT****
-        ResultSet rset = null;
+        ResultSet rset = null;// Classe que vai recuperar os dados do banco. ****SELECT****
 
         try {
-            //Cria uma conexão com o banco de dados
-            conn = ConnectionFactory.createConnectionToMySQL();
-            
-            pstm = conn.prepareStatement(sql);
 
+            // Cria uma conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySQL();
+            pstm = conn.prepareStatement(sql);
             rset = pstm.executeQuery();
 
-            while(rset.next()){
+            while (rset.next()) {
+
                 Contato contato = new Contato();
-                
-                //Recuperar o ID
-                contato.setId(rset.getInt("id"));
 
-                //Recuperar o NOME
-                contato.setName(rset.getString("nome"));
-
-                //Recuperar IDADE
-                contato.setIdade(rset.getInt("idade"));
-
-                //Recupera DATA DE CADASTRO
-                contato.setDataCadastro(rset.getDate("datacadastro"));
+                contato.setId(rset.getInt("id"));                       // Recuperar o ID
+                contato.setName(rset.getString("nome"));                // Recuperar o NOME
+                contato.setIdade(rset.getInt("idade"));                 // Recuperar IDADE
+                contato.setDataCadastro(rset.getDate("datacadastro"));  // Recupera DATA DE CADASTRO
 
                 contatos.add(contato);
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        
-        }finally{
-            
-           try{
 
-                if(rset!=null){
+        } finally {
+
+            try {
+
+                if (rset != null) {
                     rset.close();
                 }
 
-                if(pstm!=null){
+                if (pstm != null) {
                     pstm.close();
                 }
 
-                if(conn!=null){
+                if (conn != null) {
                     conn.close();
                 }
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } 
+        }
 
         return contatos;
     }
+
+    public void update(Contato contato) {
+
+        String sql = "UPDATE contatos SET nome = ?, idade = ?, datacadastro = ? " +
+                     "WHERE id = ?";
+
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        try {
+
+            // Cria conexão com o banco
+            conn = ConnectionFactory.createConnectionToMySQL();
+
+            // Criar a classe para executar a query
+            pstm = conn.prepareStatement(sql);
+
+            // Adicionar os valores para atualizar
+            pstm.setString(1, contato.getName());
+            pstm.setInt(2, contato.getIdade());
+            pstm.setDate(3, new Date(contato.getDataCadastro().getTime()));
+
+            // ID do registro que deeja atualizar
+            pstm.setInt(4, contato.getId());
+
+            // Executar a query
+            pstm.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
