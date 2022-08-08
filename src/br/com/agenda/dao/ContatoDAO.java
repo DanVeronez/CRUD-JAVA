@@ -172,4 +172,36 @@ public class ContatoDAO {
         }
     }
 
+    public void delete(int id){
+        
+        String sql = "DELETE FROM contatos WHERE id = ?";
+
+        Connection conn = null;
+        PreparedStatement pstm =null;
+
+        try{
+            conn = ConnectionFactory.createConnectionToMySQL();
+            pstm = conn.prepareStatement(sql);
+            
+            pstm.setInt(1, id);
+            pstm.execute();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+
+                if(conn!=null){
+                    conn.close();
+                }
+
+                if(pstm!=null){
+                    pstm.close();
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 }
