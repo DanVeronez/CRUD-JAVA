@@ -1,6 +1,6 @@
 # CRUD em JAVA
 
-CRUD básico em JAVA via Terminal, com o intuito de exercitar as habilidade desenvolvimento, realizando integração com Banco de Dados MySQL, ultilizando JDBC e estruturação de classes DAO, Factory e Model.
+CRUD básico em JAVA via Terminal, com o intuito de exercitar as habilidade de desenvolvimento, realizando integração com Banco de Dados MySQL, ultilizando JDBC e estruturação de classes DAO, Factory e Model.
 
 ## 🚀 CRUD
 
